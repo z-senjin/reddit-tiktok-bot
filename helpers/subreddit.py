@@ -43,13 +43,17 @@ def get_subreddits():
             comment_length = len(comment.body.split())
             if(type(comment) is praw.models.MoreComments):
                 break
-            if not comment.stickied and comment_length < config['max_comment_word_length']:
+            if not comment.stickied and comment_length < config['max_comment_word_length'] and comment.score > config['min_comment_score']:
                 content['post_comments'].append({
                     "comment_id": comment.id,
                     "comment_url": comment.permalink,
                     "comment_text": comment.body,
                 })
-                
+
+        if len(content['post_comments']) < config['min_comments_per_post']:
+            print_error('Not enough comments!')
+            return get_subreddits()
+    
     except Exception as e:
         print_error(str(e))
     

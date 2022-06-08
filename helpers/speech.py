@@ -26,8 +26,9 @@ def convert_text_to_speech(reddit_content):
     #     posttext_tts = gTTS(text=reddit_content['post_text'], lang='en')
     #     posttext_tts.save("assets/audio/posttext.mp3")
     #     video_length += MP3(f"assets/audio/posttext.mp3").info.length
-
+    count = 0
     for i, comment in track(enumerate(reddit_content['post_comments']), 'Saving comment..'):
+        count += 1
         if video_length > 50:
             break
         comment_tts = gTTS(text=comment['comment_text'], lang='en')
@@ -37,5 +38,5 @@ def convert_text_to_speech(reddit_content):
     print_substep("Saved MP3 to [ assets/audio/ ]  successfully!")
     print_substep(f"Video length: {video_length} seconds")
 
-    return video_length, i
+    return video_length, count
 
