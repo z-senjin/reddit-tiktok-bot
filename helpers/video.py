@@ -1,5 +1,5 @@
 #youtube video: https://www.youtube.com/watch?v=OhBo1A8atuA
-from random import randrange
+from random import randrange, choice
 from tkinter import W
 from utils.console import print_step, print_header, print_substep, print_error
 from pathlib import Path
@@ -112,5 +112,6 @@ def generate_final_video(number_of_comments):
     compiled_image_clips.audio = compiled_audio_composite
 
     final_video = CompositeVideoClip([background_clip, compiled_image_clips])
-    filename = "final/final.mp4"
+    random_string = "".join(choice("abcdefghijklmnopqrstuvwxyz") for i in range(10))
+    filename = "final/" + str(random_string) + ".mp4"
     final_video.write_videofile(filename, fps=30, audio_codec="aac", audio_bitrate="192k")

@@ -5,14 +5,8 @@ from helpers.video import generate_background, generate_final_video
 
 
 
-count = 0
 
 def main():
-    global count
-    count += 1
-    print(f"Count: {count}")
-    if count > 4:
-        exit()
     try:
         reddit_content = get_subreddits()
         length, number_of_comments = convert_text_to_speech(reddit_content)
@@ -23,5 +17,5 @@ def main():
         print(str(e))
         main()
 
-
-main()
+for i in range(0, 20):
+    main()
